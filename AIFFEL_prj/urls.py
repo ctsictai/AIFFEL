@@ -21,6 +21,5 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("user/", include("user.urls")),
     path("board/", include("board.urls")),
-    path("api/token", jwt_views.TokenObtainPairView.as_view()),
-    path("api/token/refresh", jwt_views.TokenRefreshView.as_view()),
+    path("api/token/", jwt_views.TokenObtainPairView.as_view()),
 ]
