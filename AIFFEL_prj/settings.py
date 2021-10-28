@@ -42,7 +42,6 @@ THIRD_PARTY_APP = [
     "rest_framework",
     "rest_framework_simplejwt",
     "corsheaders",
-    "django.contrib.contenttypes",
 ]
 LOCAL_APP = [
     "board",
@@ -132,8 +131,7 @@ CORS_ALLOW_ALL_ORIGINS = True
 
 # DRF Default_settings
 REST_FRAMEWORK = {
-    "EXCEPTION_HANDLER": "AIFFEL_prj.exceptions.custom_exception_handler",
-    "DEFAULT_AUTHENTICATION_CLASSES": ("rest_framework_simplejwt.authentication.JWTAuthentication",),
+    "DEFAULT_AUTHENTICATION_CLASSES": ["rest_framework_simplejwt.authentication.JWTAuthentication",],
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
     "PAGE_SIZE": 30,
 }
