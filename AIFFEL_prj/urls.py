@@ -16,10 +16,17 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework_simplejwt import views as jwt_views
+from rest_framework import routers
+
+from board import views
+
+router = routers.DefaultRouter(trailing_slash=True)
+router.register(r"board", views.BoardViewSet, basename="board")
+router.register(r"comment", views.CommentViewSet, basename="comment")
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("user/", include("user.urls")),
-    path("board/", include("board.urls")),
+    path("", include(router.urls)),
     path("api/token/", jwt_views.TokenObtainPairView.as_view()),
 ]
