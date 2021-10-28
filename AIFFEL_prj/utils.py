@@ -1,5 +1,6 @@
 import pytz
-from datetime import datetime
+from datetime import datetime, timedelta
+from dateutil.relativedelta import relativedelta
 
 
 def utc_to_asia_seoul_to_str(utc_dt):
@@ -13,4 +14,9 @@ def utc_to_asia_seoul_to_str(utc_dt):
     local_tz = pytz.timezone("Asia/Seoul")
     local_dt = converted_utc_dt.replace(tzinfo=pytz.utc).astimezone(local_tz)
 
-    return local_dt.strftime("%Y-%m")
+    local_dt.strftime("%Y-%m-%d")
+    local_dt_gte = local_dt.replace(day=1, hour=0, minute=0, second=0, microsecond=0)
+    local_dt_lt = local_dt + relativedelta(months=1)
+    local_dt_lt = local_dt_lt.replace(day=1, hour=0, minute=0, second=0, microsecond=0) - timedelta(microseconds=1)
+
+    return local_dt_gte, local_dt_lt

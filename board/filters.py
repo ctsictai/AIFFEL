@@ -21,15 +21,10 @@ class BoardSearchFilter(BaseFilterBackend):
 
 class BoardReactionFilter(BaseFilterBackend):
     def filter_queryset(self, request, queryset, view):
-        begin = request.query_params.get("begin", None)
-        end = request.query_params.get("end", None)
+        month = request.query_params.get("month", None)
 
-        if begin:
-            begin_month = utc_to_asia_seoul_to_str(begin)
-            queryset = queryset.filter(created_at__gte=begin_month)
-
-        if end:
-            end_month = utc_to_asia_seoul_to_str(end)
-            queryset = queryset.filter(created_at__lte=end_month)
+        if month:
+            month_gte, month_lt = utc_to_asia_seoul_to_str(month)
+            queryset = queryset.filter(created_at__range=(month_gte, month_lt))
 
         return queryset
